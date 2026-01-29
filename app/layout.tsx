@@ -9,14 +9,14 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "AutoRent - Chirie auto Chișinău | Închiriere mașini ieftine",
+  title: "W.Rent - Chirie auto Chișinău | Închiriere mașini ieftine",
   description:
     "Închiriați mașini în Chișinău de la 23 €/zi. Prețuri avantajoase, fără garanție, livrare rapidă. Peste 100 mașini disponibile.",
   keywords: [
     "chirie auto",
     "închiriere mașini Chișinău",
     "rent a car Moldova",
-    "AutoRent",
+    "W.Rent",
   ],
 };
 

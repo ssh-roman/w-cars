@@ -12,6 +12,7 @@ export const cars: Car[] = [
     category: "Sedan",
     gradientFrom: "#3b82f6",
     gradientTo: "#4f46e5",
+    image: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80",
   },
   {
     id: "2",
@@ -23,6 +24,7 @@ export const cars: Car[] = [
     category: "Sedan",
     gradientFrom: "#475569",
     gradientTo: "#1e3a5f",
+    image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80",
   },
   {
     id: "3",
@@ -34,6 +36,7 @@ export const cars: Car[] = [
     category: "Sedan",
     gradientFrom: "#374151",
     gradientTo: "#1f2937",
+    image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&q=80",
   },
   {
     id: "4",
@@ -46,6 +49,7 @@ export const cars: Car[] = [
     category: "SUV",
     gradientFrom: "#10b981",
     gradientTo: "#047857",
+    image: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80",
   },
   {
     id: "5",
@@ -57,6 +61,7 @@ export const cars: Car[] = [
     category: "SUV",
     gradientFrom: "#14b8a6",
     gradientTo: "#0d9488",
+    image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=800&q=80",
   },
   {
     id: "6",
@@ -68,6 +73,7 @@ export const cars: Car[] = [
     category: "SUV",
     gradientFrom: "#16a34a",
     gradientTo: "#15803d",
+    image: "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=800&q=80",
   },
   {
     id: "7",
@@ -80,6 +86,7 @@ export const cars: Car[] = [
     category: "SUV",
     gradientFrom: "#a3e635",
     gradientTo: "#16a34a",
+    image: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&q=80",
   },
   {
     id: "8",
@@ -91,6 +98,7 @@ export const cars: Car[] = [
     category: "SUV",
     gradientFrom: "#dc2626",
     gradientTo: "#991b1b",
+    image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=800&q=80",
   },
   {
     id: "9",
@@ -103,6 +111,7 @@ export const cars: Car[] = [
     category: "Hatchback",
     gradientFrom: "#fb923c",
     gradientTo: "#f97316",
+    image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800&q=80",
   },
   {
     id: "10",
@@ -114,6 +123,7 @@ export const cars: Car[] = [
     category: "Sedan",
     gradientFrom: "#6366f1",
     gradientTo: "#4338ca",
+    image: "https://images.unsplash.com/photo-1610768764270-790fbec18178?w=800&q=80",
   },
   {
     id: "11",
@@ -125,6 +135,7 @@ export const cars: Car[] = [
     category: "Sedan",
     gradientFrom: "#38bdf8",
     gradientTo: "#0284c7",
+    image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800&q=80",
   },
   {
     id: "12",
@@ -136,6 +147,7 @@ export const cars: Car[] = [
     category: "Sedan",
     gradientFrom: "#a78bfa",
     gradientTo: "#7c3aed",
+    image: "https://images.unsplash.com/photo-1590362891991-f776e747a588?w=800&q=80",
   },
   {
     id: "13",
@@ -147,6 +159,7 @@ export const cars: Car[] = [
     category: "Hatchback",
     gradientFrom: "#facc15",
     gradientTo: "#d97706",
+    image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&q=80",
   },
   {
     id: "14",
@@ -158,6 +171,7 @@ export const cars: Car[] = [
     category: "SUV",
     gradientFrom: "#22d3ee",
     gradientTo: "#0891b2",
+    image: "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=800&q=80",
   },
   {
     id: "15",
@@ -169,6 +183,7 @@ export const cars: Car[] = [
     category: "Sedan",
     gradientFrom: "#f43f5e",
     gradientTo: "#e11d48",
+    image: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&q=80",
   },
   {
     id: "16",
@@ -180,6 +195,7 @@ export const cars: Car[] = [
     category: "SUV",
     gradientFrom: "#34d399",
     gradientTo: "#0d9488",
+    image: "https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=800&q=80",
   },
 ];
 

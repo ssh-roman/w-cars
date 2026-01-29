@@ -6,9 +6,10 @@ export interface Car {
   seats: number;
   fuel: "Diesel" | "Benzină" | "Electric" | "Hibrid";
   hasNoDeposit?: boolean;
-  category: "Sedan" | "SUV" | "Hatchback" | "Coupe";
+  category: "Sedan" | "SUV" | "Hatchback" | "Coupe" | "Minivan";
   gradientFrom: string;
   gradientTo: string;
+  image?: string;
 }
 
 export interface Testimonial {
