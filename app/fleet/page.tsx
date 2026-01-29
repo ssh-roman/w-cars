@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -17,7 +17,7 @@ const carTypes = [
   { value: "Coupe", label: "Coupe" },
 ];
 
-export default function FleetPage() {
+function FleetContent() {
   const searchParams = useSearchParams();
   const initialFilter = searchParams.get("type") || "all";
   const [selectedType, setSelectedType] = useState(initialFilter);
@@ -95,5 +95,27 @@ export default function FleetPage() {
       <Footer />
       <FloatingButton />
     </main>
+  );
+}
+
+export default function FleetPage() {
+  return (
+    <Suspense fallback={
+      <main className="min-h-screen bg-[#F5F5F5]">
+        <Header />
+        <section className="relative bg-gradient-to-br from-[#1B4D3E] via-[#165740] to-[#1B4D3E] pt-32 pb-16">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">
+                Flota noastră de mașini
+              </h1>
+            </div>
+          </div>
+        </section>
+        <Footer />
+      </main>
+    }>
+      <FleetContent />
+    </Suspense>
   );
 }

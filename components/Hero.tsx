@@ -4,14 +4,8 @@ import FilterBar from "./FilterBar";
 import Image from "next/image";
 
 export default function Hero() {
-  const scrollToCars = () => {
-    const carsSection = document.querySelector("#cars");
-    if (carsSection) {
-      carsSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
   return (
-    <section className="relative bg-linear-180 from-[#1B4D3E] via-[#165740] to-[#1d5a48] overflow-hidden">
+    <section className="relative bg-gradient-to-br from-[#1B4D3E] via-[#165740] to-[#1d5a48] overflow-hidden">
       {/* Background Image */}
       {/* <div
         className="hidden sm:block absolute inset-0 bg-cover bg-bottom bg-no-repeat"
