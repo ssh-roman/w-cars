@@ -21,18 +21,18 @@ export default function FilterBar() {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 pb-8">
-      <div className="bg-white shadow-lg border border-gray-200 p-4 lg:p-5">
+      <div className="bg-white shadow-2xl shadow-black/10 border border-white/10 p-4 lg:p-5">
         <div className="flex flex-col sm:flex-row gap-3">
           {/* Car Type */}
           <div className="flex-1 relative">
-            <label className="block text-xs font-medium text-gray-500 mb-1.5 px-1">
+            <label className="block text-xs font-medium text-gray-400 mb-1.5 px-1 uppercase tracking-wider">
               Tip mașină
             </label>
             <div className="relative">
               <select
                 value={carType}
                 onChange={(e) => setCarType(e.target.value)}
-                className="w-full appearance-none bg-gray-50 border border-gray-200 px-4 py-2.5 pr-8 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#228B5B] focus:border-transparent cursor-pointer"
+                className="w-full appearance-none bg-gray-50 border border-gray-200 px-4 py-2.5 pr-8 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#E8630A] focus:border-transparent cursor-pointer"
               >
                 {carTypes.map((type) => (
                   <option key={type} value={type}>
@@ -49,20 +49,20 @@ export default function FilterBar() {
 
           {/* Start Date */}
           <div className="flex-1">
-            <label className="block text-xs font-medium text-gray-500 mb-1.5 px-1">
+            <label className="block text-xs font-medium text-gray-400 mb-1.5 px-1 uppercase tracking-wider">
               Data de pornire
             </label>
             <input
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="w-full bg-gray-50 border border-gray-200 px-3 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#228B5B] focus:border-transparent"
+              className="w-full bg-gray-50 border border-gray-200 px-3 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#E8630A] focus:border-transparent"
             />
           </div>
 
           {/* Location */}
           <div className="flex-1 relative">
-            <label className="block text-xs font-medium text-gray-500 mb-1.5 px-1">
+            <label className="block text-xs font-medium text-gray-400 mb-1.5 px-1 uppercase tracking-wider">
               Locație
             </label>
             <div className="relative">
@@ -75,27 +75,27 @@ export default function FilterBar() {
                 placeholder="Chișinău"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="w-full bg-gray-50 border border-gray-200 px-4 py-2.5 pl-8 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#228B5B] focus:border-transparent"
+                className="w-full bg-gray-50 border border-gray-200 px-4 py-2.5 pl-8 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#E8630A] focus:border-transparent"
               />
             </div>
           </div>
 
           {/* End Date */}
           <div className="flex-1">
-            <label className="block text-xs font-medium text-gray-500 mb-1.5 px-1">
+            <label className="block text-xs font-medium text-gray-400 mb-1.5 px-1 uppercase tracking-wider">
               Data de retur
             </label>
             <input
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="w-full bg-gray-50 border border-gray-200 px-3 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#228B5B] focus:border-transparent"
+              className="w-full bg-gray-50 border border-gray-200 px-3 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#E8630A] focus:border-transparent"
             />
           </div>
 
           {/* Search Button */}
           <div className="flex items-end">
-            <button className="w-full sm:w-auto bg-[#228B5B] text-white px-6 py-2.5 text-sm font-semibold hover:bg-[#1B7048] transition-all duration-200 flex items-center gap-2 justify-center shadow-md">
+            <button className="w-full sm:w-auto bg-[#E8630A] text-white px-6 py-2.5 text-sm font-semibold hover:bg-[#D4570A] transition-all duration-200 flex items-center gap-2 justify-center shadow-md shadow-[#E8630A]/20">
               <Search size={16} />
               Caută o mașină
             </button>

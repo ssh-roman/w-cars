@@ -6,9 +6,9 @@ import Link from "next/link";
 import Image from "next/image";
 
 const navLinks = [
+  { label: "Despre noi", href: "/despre-noi" },
   { label: "Cum arată etapele?", href: "/#steps" },
   { label: "Răspunsuri", href: "/#faq" },
-  { label: "Parteneri", href: "/#partners" },
   { label: "Contacte", href: "/contact" },
 ];
 
@@ -52,7 +52,7 @@ export default function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        mobileOpen ? "bg-[#1B4D3E]" : isScrolled ? "bg-white shadow-sm" : "bg-transparent"
+        mobileOpen ? "bg-[#0C1220]" : isScrolled ? "bg-white shadow-sm" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -83,7 +83,7 @@ export default function Header() {
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className={`flex items-center gap-1 transition-colors hover:text-[#43cc8e] ${
+                  className={`flex items-center gap-1 transition-colors hover:text-[#E8630A] ${
                     isScrolled ? "text-gray-600" : "text-white/80"
                   }`}
                 >
@@ -92,13 +92,13 @@ export default function Header() {
                 </button>
 
                 {dropdownOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-50">
+                  <div className="absolute top-full left-0 mt-2 w-48 bg-white shadow-xl border border-gray-100 py-2 z-50">
                     {carTypes.map((type) => (
                       <Link
                         key={type.type}
                         href={`/fleet?type=${type.type}`}
                         onClick={() => setDropdownOpen(false)}
-                        className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-[#228B5B]/10 hover:text-[#228B5B] transition-colors"
+                        className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-[#E8630A]/8 hover:text-[#E8630A] transition-colors"
                       >
                         {type.label}
                       </Link>
@@ -112,7 +112,7 @@ export default function Header() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className={`transition-colors hover:text-[#43cc8e] ${
+                  className={`transition-colors hover:text-[#E8630A] ${
                     isScrolled ? "text-gray-600" : "text-white/80"
                   }`}
                 >
@@ -123,7 +123,7 @@ export default function Header() {
           </div>
 
           <div className="hidden lg:flex items-center gap-5">
-            <a href="tel:+3731234567" className="bg-[#228B5B] text-white flex items-center gap-2 px-8 py-3 text-sm font-semibold hover:bg-[#1B7048] transition-colors">
+            <a href="tel:+3731234567" className="bg-[#E8630A] text-white flex items-center gap-2 px-8 py-3 text-sm font-semibold hover:bg-[#D4570A] transition-colors">
               <Phone size={15} />
               <span>+373 12 34 567</span>
             </a>
@@ -145,12 +145,12 @@ export default function Header() {
 
       {/* Full Screen Mobile Menu */}
       {mobileOpen && (
-        <div className="lg:hidden fixed inset-0 top-16 bg-[#1B4D3E] z-40 flex flex-col">
+        <div className="lg:hidden fixed inset-0 top-16 bg-[#0C1220] z-40 flex flex-col">
           <div className="flex-1 overflow-y-auto px-4 py-6">
             <nav className="flex flex-col gap-1" aria-label="Mobile navigation">
               {/* Mașini Section */}
               <div className="mb-2">
-                <p className="text-white/60 text-xs font-semibold uppercase tracking-wider px-3 py-2">
+                <p className="text-white/40 text-xs font-semibold uppercase tracking-wider px-3 py-2">
                   Mașini
                 </p>
                 {carTypes.map((type) => (
@@ -158,7 +158,7 @@ export default function Header() {
                     key={type.type}
                     href={`/fleet?type=${type.type}`}
                     onClick={() => setMobileOpen(false)}
-                    className="text-white/90 hover:text-white py-2 px-3 pl-6 hover:bg-white/10 text-sm font-medium transition-colors block"
+                    className="text-white/90 hover:text-white py-2 px-3 pl-6 hover:bg-white/5 text-sm font-medium transition-colors block"
                   >
                     {type.label}
                   </Link>
@@ -174,7 +174,7 @@ export default function Header() {
                     e.preventDefault();
                     scrollTo(link.href);
                   }}
-                  className="text-white/90 hover:text-white py-2 px-3 hover:bg-white/10 text-sm font-medium transition-colors"
+                  className="text-white/90 hover:text-white py-2 px-3 hover:bg-white/5 text-sm font-medium transition-colors"
                 >
                   {link.label}
                 </a>
@@ -183,10 +183,10 @@ export default function Header() {
           </div>
 
           {/* Bottom Call Button */}
-          <div className="p-4 border-t border-white/20">
+          <div className="p-4 border-t border-white/10">
             <a
               href="tel:+3731234567"
-              className="bg-[#228B5B] text-white flex items-center justify-center gap-2 px-8 py-4 text-sm font-semibold hover:bg-[#1B7048] transition-colors w-full"
+              className="bg-[#E8630A] text-white flex items-center justify-center gap-2 px-8 py-4 text-sm font-semibold hover:bg-[#D4570A] transition-colors w-full"
             >
               <Phone size={18} />
               <span>+373 12 34 567</span>

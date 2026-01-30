@@ -9,7 +9,7 @@ import FloatingButton from "@/components/FloatingButton";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#F5F5F5]">
+    <main className="min-h-screen bg-[#F8F8F6]">
       <Header />
       <Hero />
       <CarGrid />

@@ -27,17 +27,23 @@ function FleetContent() {
     : cars.filter((car: Car) => car.category === selectedType);
 
   return (
-    <main className="min-h-screen bg-[#F5F5F5]">
+    <main className="min-h-screen bg-[#F8F8F6]">
       <Header />
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#1B4D3E] via-[#165740] to-[#1B4D3E] pt-32 pb-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative bg-[#0C1220] pt-32 pb-16">
+        <div
+          className="absolute inset-0 opacity-30"
+          style={{
+            background: "radial-gradient(ellipse 60% 50% at 50% 50%, #E8630A10, transparent)",
+          }}
+        />
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">
               Flota noastră de mașini
             </h1>
-            <p className="text-white/80 text-lg max-w-2xl mx-auto">
+            <p className="text-white/50 text-lg max-w-2xl mx-auto">
               Explorați colecția noastră completă de vehicule. De la mașini compacte la SUV-uri luxoase.
             </p>
           </div>
@@ -54,9 +60,9 @@ function FleetContent() {
                 <button
                   key={type.value}
                   onClick={() => setSelectedType(type.value)}
-                  className={`px-6 py-3 font-semibold transition-all duration-200 ${
+                  className={`cursor-pointer px-6 py-3 font-semibold transition-all duration-200 ${
                     selectedType === type.value
-                      ? "bg-[#228B5B] text-white shadow-md"
+                      ? "bg-[#111827] text-white shadow-md"
                       : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
                   }`}
                 >
@@ -69,7 +75,7 @@ function FleetContent() {
           {/* Results Count */}
           <div className="mb-6">
             <p className="text-gray-600 text-center">
-              <span className="font-semibold text-[#228B5B]">{filteredCars.length}</span> mașini disponibile
+              <span className="font-semibold text-[#E8630A]">{filteredCars.length}</span> mașini disponibile
               {selectedType !== "all" && ` în categoria ${carTypes.find(t => t.value === selectedType)?.label}`}
             </p>
           </div>
@@ -101,9 +107,9 @@ function FleetContent() {
 export default function FleetPage() {
   return (
     <Suspense fallback={
-      <main className="min-h-screen bg-[#F5F5F5]">
+      <main className="min-h-screen bg-[#F8F8F6]">
         <Header />
-        <section className="relative bg-gradient-to-br from-[#1B4D3E] via-[#165740] to-[#1B4D3E] pt-32 pb-16">
+        <section className="relative bg-[#0C1220] pt-32 pb-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">

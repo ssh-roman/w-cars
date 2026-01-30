@@ -2,58 +2,90 @@
 
 import FilterBar from "./FilterBar";
 import Image from "next/image";
+import { ArrowDown } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative bg-gradient-to-br from-[#1B4D3E] via-[#165740] to-[#1d5a48] overflow-hidden">
-      {/* Background Image */}
-      {/* <div
-        className="hidden sm:block absolute inset-0 bg-cover bg-bottom bg-no-repeat"
-        style={{
-          backgroundImage: "url('/hero.png')",
-        }}
-      /> */}
-
-      {/* Dark Overlay for text readability */}
-      <div className="hidden absolute inset-0 bg-gradient-to-br from-[#1B4D3E]/50 via-[#165740]/50 to-[#1B4D3E]/50" />
-
-      {/* Decorative background circles
+    <section className="relative bg-[#0C1220] overflow-hidden min-h-[85vh] flex flex-col">
+      {/* Atmospheric gradient overlays */}
       <div
-        className="absolute top-10 right-0 w-[450px] h-[450px] rounded-full opacity-10"
+        className="absolute inset-0 opacity-40"
         style={{
-          background: "radial-gradient(circle, #D4AF37 0%, transparent 70%)",
+          background: "radial-gradient(ellipse 80% 60% at 70% 50%, #E8630A15, transparent)",
         }}
       />
       <div
-        className="absolute bottom-40 left-1/4 w-[250px] h-[250px] rounded-full opacity-5"
+        className="absolute inset-0 opacity-30"
         style={{
-          background: "radial-gradient(circle, #52B788 0%, transparent 70%)",
+          background: "radial-gradient(ellipse 50% 80% at 20% 80%, #D4AF3710, transparent)",
         }}
-      /> */}
+      />
 
-      <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Subtle grid texture */}
+      <div
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: "linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+        }}
+      />
+
+      <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex flex-col">
         {/* Spacer for fixed header */}
-        <div className="pt-24 lg:pt-32 pb-10 lg:pb-14">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
+        <div className="pt-28 lg:pt-36 pb-8 lg:pb-12 flex-1 flex flex-col justify-center">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-4">
             {/* Left - Text Content */}
             <div className="w-full lg:flex-1 text-center lg:text-left">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-2">
-                Închiriază o mașină în 
-                <span className="text-[#D4AF37]"> Chișinău</span>
+              <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-1.5 text-xs font-medium text-white/60 uppercase tracking-widest mb-6">
+                <span className="w-1.5 h-1.5 bg-[#E8630A]"></span>
+                Chișinău, Moldova
+              </div>
+
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.1] mb-5 tracking-tight">
+                Închiriază o
+                <br />
+                mașină în{" "}
+                <span className="text-[#E8630A]">Chișinău</span>
               </h1>
-              <p className="text-white/90">
+
+              <p className="text-white/50 text-base lg:text-lg max-w-md mb-8 leading-relaxed">
                 De la <span className="font-semibold text-[#D4AF37]">23 €/zi</span>. Prețuri avantajoase, fără garanție, livrare rapidă.
               </p>
+
+              <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+                <a href="#cars" className="bg-[#E8630A] text-white px-8 py-3.5 text-sm font-semibold hover:bg-[#D4570A] transition-colors inline-flex items-center justify-center gap-2">
+                  Vezi flota
+                  <ArrowDown size={16} />
+                </a>
+                <a href="tel:+3731234567" className="border border-white/20 text-white px-8 py-3.5 text-sm font-semibold hover:bg-white/5 transition-colors inline-flex items-center justify-center gap-2">
+                  Sună acum
+                </a>
+              </div>
             </div>
-            {/* Right - Call to Action */}
-            <div className="w-full lg:flex-1 flex justify-center lg:justify-end">
-              <Image src="/hero-car.webp" alt="Car Hero" width={500} height={300} />
+
+            {/* Right - Hero Car */}
+            <div className="w-full lg:flex-1 flex justify-center lg:justify-end relative">
+              {/* Glow behind car */}
+              <div
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] opacity-20"
+                style={{
+                  background: "radial-gradient(circle, #E8630A 0%, transparent 70%)",
+                }}
+              />
+              <Image
+                src="/hero-car.webp"
+                alt="Car Hero"
+                width={600}
+                height={360}
+                className="relative z-10 drop-shadow-2xl"
+                priority
+              />
             </div>
           </div>
         </div>
-
-        {/* Filter Bar */}
       </div>
+
+      {/* Filter Bar */}
       <FilterBar />
     </section>
   );

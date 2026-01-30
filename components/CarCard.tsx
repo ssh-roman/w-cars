@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Heart, Settings, Users, Droplets, X, Phone } from "lucide-react";
 import type { Car } from "@/lib/types";
 
@@ -50,7 +51,7 @@ export default function CarCard({ car }: CarCardProps) {
 
   return (
     <>
-    <div className="bg-white overflow-hidden shadow-sm border border-gray-200 hover:shadow-md transition-all duration-300 hover:-translate-y-1 flex flex-col group">
+    <div className="bg-white overflow-hidden shadow-sm border border-gray-200 hover:shadow-lg hover:shadow-black/5 transition-all duration-300 hover:-translate-y-1 flex flex-col group">
       {/* Image Area */}
       <div className="relative h-64 bg-gray-100 overflow-hidden">
         {car.image ? (
@@ -58,7 +59,7 @@ export default function CarCard({ car }: CarCardProps) {
             src={car.image}
             alt={car.name}
             fill
-            className="object-cover"
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
@@ -72,7 +73,7 @@ export default function CarCard({ car }: CarCardProps) {
 
         {/* No Deposit Badge */}
         {car.hasNoDeposit && (
-          <span className="absolute top-3 left-3 bg-[#FF3B3B] text-white text-xs font-bold px-3 py-1 shadow-sm z-10">
+          <span className="absolute top-3 left-3 bg-[#E8630A] text-white text-xs font-bold px-3 py-1 shadow-sm z-10">
             Fără garanție
           </span>
         )}
@@ -80,21 +81,24 @@ export default function CarCard({ car }: CarCardProps) {
         {/* Favorite Button */}
         <button
           onClick={() => setIsFavorite(!isFavorite)}
-          className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-white/90 shadow-sm hover:scale-110 transition-transform z-10"
+          className="absolute top-3 rounded-full right-3 w-8 h-8 flex items-center justify-center bg-white/90 shadow-sm hover:scale-110 transition-transform z-10"
           aria-label={isFavorite ? "Eliminare din preferinte" : "Adăugare la preferinte"}
         >
           <Heart
             size={16}
             className={
-              isFavorite ? "fill-[#FF3B3B] text-[#FF3B3B]" : "text-gray-400"
+              isFavorite ? "fill-[#E8630A] text-[#E8630A]" : "text-gray-400"
             }
           />
         </button>
 
         {/* Category Label */}
-        <span className="absolute bottom-3 left-3 bg-black/50 text-white text-xs font-medium px-2 py-1 z-10">
+        <span className="absolute bottom-3 left-3 bg-black/60 text-white text-xs font-medium px-2 py-1 z-10">
           {car.category}
         </span>
+
+        {/* Clickable overlay to detail page */}
+        <Link href={`/fleet/${car.id}`} className="absolute inset-0 z-[5]" aria-label={`Vezi detalii ${car.name}`} />
       </div>
 
       {/* Content */}
@@ -116,19 +120,21 @@ export default function CarCard({ car }: CarCardProps) {
         </div>
 
         {/* Name */}
-        <h3 className="font-bold text-gray-900 text-lg mb-1">{car.name}</h3>
+        <Link href={`/fleet/${car.id}`} className="hover:text-[#E8630A] transition-colors">
+          <h3 className="font-bold text-gray-900 text-lg mb-1">{car.name}</h3>
+        </Link>
 
         {/* Price */}
         <p className="text-gray-500 text-sm mb-4">
           de la{" "}
-          <span className="text-[#228B5B] font-bold text-xl">{car.price} €</span>
+          <span className="text-[#E8630A] font-bold text-xl">{car.price} €</span>
           /zi
         </p>
 
         {/* Button */}
         <button
           onClick={() => setModalOpen(true)}
-          className="mt-auto w-full bg-[#228B5B] text-white py-2.5 text-sm font-semibold hover:bg-[#1B7048] transition-colors"
+          className="cursor-pointer mt-auto w-full bg-[#111827] text-white py-2.5 text-sm font-semibold hover:bg-[#E8630A] transition-colors"
         >
           Solicită
         </button>
@@ -137,7 +143,7 @@ export default function CarCard({ car }: CarCardProps) {
 
       {/* Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center bg-white sm:bg-black/50" onClick={() => setModalOpen(false)}>
+        <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center bg-white sm:bg-black/60" onClick={() => setModalOpen(false)}>
           <div
             className="bg-white w-full sm:max-w-md relative sm:m-4"
             onClick={(e) => e.stopPropagation()}
@@ -153,7 +159,7 @@ export default function CarCard({ car }: CarCardProps) {
 
             {/* Modal Header */}
             <div className="p-4 sm:p-6 border-b border-gray-200">
-              <h2 className="text-xl sm:text-2xl font-bold text-[#1B4D3E] mb-2 pr-8">
+              <h2 className="text-xl sm:text-2xl font-bold text-[#111827] mb-2 pr-8">
                 Solicită {car.name}
               </h2>
               <p className="text-gray-600 text-sm">
@@ -178,7 +184,7 @@ export default function CarCard({ car }: CarCardProps) {
                   )}
                   <div className="flex-1">
                     <h3 className="font-bold text-gray-900 mb-1">{car.name}</h3>
-                    <p className="text-[#228B5B] font-bold text-lg">
+                    <p className="text-[#E8630A] font-bold text-lg">
                       {car.price} € <span className="text-sm text-gray-500 font-normal">/zi</span>
                     </p>
                     <div className="flex items-center gap-3 text-xs text-gray-500 mt-2">
@@ -197,7 +203,7 @@ export default function CarCard({ car }: CarCardProps) {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-bold text-gray-900 text-sm">{car.name}</p>
-                    <p className="text-[#228B5B] font-bold text-base">
+                    <p className="text-[#E8630A] font-bold text-base">
                       {car.price} € <span className="text-xs text-gray-500 font-normal">/zi</span>
                     </p>
                   </div>
@@ -229,7 +235,7 @@ export default function CarCard({ car }: CarCardProps) {
                     placeholder="+373 XX XXX XXX"
                     required
                     pattern="[+]?[0-9]{9,15}"
-                    className="w-full pl-10 pr-4 py-3 text-base border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#228B5B] focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-3 text-base border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#E8630A] focus:border-transparent"
                   />
                 </div>
                 <p className="text-xs text-gray-500 mt-1.5">
@@ -241,7 +247,7 @@ export default function CarCard({ car }: CarCardProps) {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-[#228B5B] text-white py-3.5 text-base font-semibold hover:bg-[#1B7048] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-[#E8630A] text-white py-3.5 text-base font-semibold hover:bg-[#D4570A] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? "Se trimite..." : "Trimite solicitarea"}
               </button>

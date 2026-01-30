@@ -46,17 +46,23 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#F5F5F5]">
+    <main className="min-h-screen bg-[#F8F8F6]">
       <Header />
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#1B4D3E] via-[#165740] to-[#1B4D3E] pt-32 pb-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative bg-[#0C1220] pt-32 pb-16">
+        <div
+          className="absolute inset-0 opacity-30"
+          style={{
+            background: "radial-gradient(ellipse 60% 50% at 50% 50%, #E8630A10, transparent)",
+          }}
+        />
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4">
               Contactează-ne
             </h1>
-            <p className="text-white/80 text-lg max-w-2xl mx-auto">
+            <p className="text-white/50 text-lg max-w-2xl mx-auto">
               Suntem aici să te ajutăm. Contactează-ne pentru orice întrebare despre serviciile noastre.
             </p>
           </div>
@@ -69,7 +75,7 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
             {/* Left Column - Company Info */}
             <div>
-              <h2 className="text-2xl lg:text-3xl font-bold text-[#1B4D3E] mb-6">
+              <h2 className="text-2xl lg:text-3xl font-bold text-[#111827] mb-6">
                 W.Rent - Închirieri Auto
               </h2>
               <p className="text-gray-600 mb-8 leading-relaxed">
@@ -81,14 +87,14 @@ export default function ContactPage() {
               {/* Contact Details */}
               <div className="space-y-5 mb-8">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#228B5B]/10 flex items-center justify-center flex-shrink-0">
-                    <Phone size={20} className="text-[#228B5B]" />
+                  <div className="w-12 h-12 bg-[#E8630A]/8 flex items-center justify-center flex-shrink-0">
+                    <Phone size={20} className="text-[#E8630A]" />
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900 mb-1">Telefon</p>
                     <a
                       href="tel:+37368585404"
-                      className="text-gray-600 hover:text-[#228B5B] transition-colors"
+                      className="text-gray-600 hover:text-[#E8630A] transition-colors"
                     >
                       +373 68 585 404
                     </a>
@@ -96,14 +102,14 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#228B5B]/10 flex items-center justify-center flex-shrink-0">
-                    <Mail size={20} className="text-[#228B5B]" />
+                  <div className="w-12 h-12 bg-[#E8630A]/8 flex items-center justify-center flex-shrink-0">
+                    <Mail size={20} className="text-[#E8630A]" />
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900 mb-1">Email</p>
                     <a
                       href="mailto:office@wrent.md"
-                      className="text-gray-600 hover:text-[#228B5B] transition-colors"
+                      className="text-gray-600 hover:text-[#E8630A] transition-colors"
                     >
                       office@wrent.md
                     </a>
@@ -111,8 +117,8 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#228B5B]/10 flex items-center justify-center flex-shrink-0">
-                    <MapPin size={20} className="text-[#228B5B]" />
+                  <div className="w-12 h-12 bg-[#E8630A]/8 flex items-center justify-center flex-shrink-0">
+                    <MapPin size={20} className="text-[#E8630A]" />
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900 mb-1">Adresă</p>
@@ -124,8 +130,8 @@ export default function ContactPage() {
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-[#228B5B]/10 flex items-center justify-center flex-shrink-0">
-                    <Clock size={20} className="text-[#228B5B]" />
+                  <div className="w-12 h-12 bg-[#E8630A]/8 flex items-center justify-center flex-shrink-0">
+                    <Clock size={20} className="text-[#E8630A]" />
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900 mb-1">Program</p>
@@ -141,7 +147,7 @@ export default function ContactPage() {
 
             {/* Right Column - Contact Form */}
             <div className="bg-white border border-gray-200 p-6 lg:p-8">
-              <h3 className="text-xl font-bold text-[#1B4D3E] mb-6">
+              <h3 className="text-xl font-bold text-[#111827] mb-6">
                 Trimite-ne un mesaj
               </h3>
 
@@ -161,7 +167,7 @@ export default function ContactPage() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#228B5B] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#E8630A] focus:border-transparent"
                     placeholder="Numele tău"
                   />
                 </div>
@@ -181,7 +187,7 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#228B5B] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#E8630A] focus:border-transparent"
                     placeholder="email@example.com"
                   />
                 </div>
@@ -202,7 +208,7 @@ export default function ContactPage() {
                     onChange={handleChange}
                     required
                     pattern="[+]?[0-9]{9,15}"
-                    className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#228B5B] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#E8630A] focus:border-transparent"
                     placeholder="+373 XX XXX XXX"
                   />
                 </div>
@@ -222,7 +228,7 @@ export default function ContactPage() {
                     onChange={handleChange}
                     required
                     rows={5}
-                    className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#228B5B] focus:border-transparent resize-none"
+                    className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#E8630A] focus:border-transparent resize-none"
                     placeholder="Scrie mesajul tău aici..."
                   />
                 </div>
@@ -231,7 +237,7 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-[#228B5B] text-white py-3.5 font-semibold hover:bg-[#1B7048] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="cursor-pointer w-full bg-[#E8630A] text-white py-3.5 font-semibold hover:bg-[#D4570A] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? "Se trimite..." : "Trimite mesajul"}
                 </button>

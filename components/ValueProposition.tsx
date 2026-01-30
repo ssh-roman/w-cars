@@ -33,13 +33,13 @@ const steps = [
 
 export default function ValueProposition() {
   return (
-    <section id="steps" className="py-16 lg:py-24 bg-gray-50">
+    <section id="steps" className="py-16 lg:py-24 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 lg:mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold text-[#1B4D3E] mb-4">
+          <h2 className="text-3xl lg:text-4xl font-bold text-[#111827] mb-4">
             Cum funcționează?
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-base lg:text-lg">
+          <p className="text-gray-500 max-w-2xl mx-auto text-base lg:text-lg">
             Procesul de închiriere este simplu și rapid. În doar 4 pași simpli poți fi la volanul mașinii tale.
           </p>
         </div>
@@ -50,16 +50,16 @@ export default function ValueProposition() {
             return (
               <div
                 key={step.id}
-                className="bg-white border border-gray-200 p-6 relative group hover:shadow-md transition-all duration-300"
+                className="bg-[#F8F8F6] border border-gray-200 p-6 relative group hover:shadow-lg hover:shadow-black/5 transition-all duration-300"
               >
                 {/* Step Number */}
-                <div className="absolute -top-3 -left-3 w-12 h-12 bg-[#228B5B] text-white flex items-center justify-center font-bold text-lg">
+                <div className="absolute -top-3 -left-3 w-12 h-12 bg-[#111827] text-white flex items-center justify-center font-bold text-lg">
                   {index + 1}
                 </div>
 
                 {/* Icon */}
-                <div className="w-14 h-14 mb-4 bg-[#228B5B]/10 flex items-center justify-center mt-2">
-                  <Icon size={28} className="text-[#228B5B]" />
+                <div className="w-14 h-14 mb-4 bg-[#E8630A]/8 flex items-center justify-center mt-2">
+                  <Icon size={28} className="text-[#E8630A]" />
                 </div>
 
                 {/* Title */}
@@ -68,13 +68,13 @@ export default function ValueProposition() {
                 </h3>
 
                 {/* Description */}
-                <p className="text-gray-600 text-sm leading-relaxed">
+                <p className="text-gray-500 text-sm leading-relaxed">
                   {step.description}
                 </p>
 
                 {/* Connection Line - Desktop Only */}
                 {index < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-16 -right-4 w-8 h-0.5 bg-[#228B5B]/20" />
+                  <div className="hidden lg:block absolute top-16 -right-4 w-8 h-0.5 bg-[#E8630A]/20" />
                 )}
               </div>
             );
