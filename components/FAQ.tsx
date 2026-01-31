@@ -2,11 +2,19 @@
 
 import { useState } from "react";
 import { ChevronDown, HelpCircle } from "lucide-react";
-import { faqItems } from "@/lib/data";
 import ScrollReveal from "./ScrollReveal";
+import { Dictionary } from "@/lib/i18n/types";
+import { Locale } from "@/lib/i18n/config";
+import { getFAQItems } from "@/lib/i18n/data/faq";
 
-export default function FAQ() {
+interface FAQProps {
+  dict: Dictionary;
+  locale: Locale;
+}
+
+export default function FAQ({ dict, locale }: FAQProps) {
   const [openId, setOpenId] = useState<string | null>(null);
+  const faqItems = getFAQItems(locale);
 
   return (
     <section id="faq" className="py-16 lg:py-24 bg-[#F8F8F6]">
@@ -15,10 +23,10 @@ export default function FAQ() {
           <div className="text-center mb-10 lg:mb-14">
             <div className="inline-flex items-center gap-2 bg-[#111827]/5 text-[#111827] px-4 py-1.5 text-sm font-medium mb-4">
               <HelpCircle size={14} />
-              Întrebări frecvente
+              {dict.faq.title}
             </div>
             <h2 className="text-3xl lg:text-4xl font-bold text-[#111827]">
-              FAQ
+              {dict.faq.title}
             </h2>
           </div>
         </ScrollReveal>

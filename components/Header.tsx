@@ -4,27 +4,35 @@ import { useState, useEffect, useRef } from "react";
 import { Phone, Menu, X, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import LanguageSwitcher from "./LanguageSwitcher";
+import { Dictionary } from "@/lib/i18n/types";
+import { Locale } from "@/lib/i18n/config";
 
-const navLinks = [
-  { label: "Despre noi", href: "/despre-noi" },
-  { label: "Cum arată etapele?", href: "/#steps" },
-  { label: "Răspunsuri", href: "/#faq" },
-  { label: "Contacte", href: "/contact" },
-];
+interface HeaderProps {
+  dict: Dictionary;
+  locale: Locale;
+}
 
-const carTypes = [
-  { label: "Toate mașinile", type: "all" },
-  { label: "Sedan", type: "Sedan" },
-  { label: "SUV", type: "SUV" },
-  { label: "Hatchback", type: "Hatchback" },
-  { label: "Coupe", type: "Coupe" },
-];
-
-export default function Header() {
+export default function Header({ dict, locale }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const navLinks = [
+    { label: dict.nav.about, href: `/${locale}/about` },
+    { label: dict.nav.howItWorks, href: `/${locale}/#steps` },
+    { label: dict.nav.faq, href: `/${locale}/#faq` },
+    { label: dict.nav.contact, href: `/${locale}/contact` },
+  ];
+
+  const carTypes = [
+    { label: dict.filter.all, type: "all" },
+    { label: dict.filter.sedan, type: "Sedan" },
+    { label: dict.filter.suv, type: "SUV" },
+    { label: dict.filter.hatchback, type: "Hatchback" },
+    { label: dict.filter.coupe, type: "Coupe" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -59,7 +67,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 lg:h-20">
           <div className="flex gap-12">
             <Link
-              href="/"
+              href={`/${locale}`}
               className="cursor-pointer"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               role="button"
@@ -79,7 +87,7 @@ export default function Header() {
             </Link>
 
             <nav className="hidden lg:flex items-center gap-8" aria-label="Main navigation">
-              {/* Mașini Dropdown */}
+              {/* Cars Dropdown */}
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -87,7 +95,7 @@ export default function Header() {
                     isScrolled ? "text-gray-600" : "text-white/80"
                   }`}
                 >
-                  Mașini
+                  {dict.nav.fleet}
                   <ChevronDown size={16} className={`transition-transform ${dropdownOpen ? "rotate-180" : ""}`} />
                 </button>
 
@@ -96,7 +104,7 @@ export default function Header() {
                     {carTypes.map((type) => (
                       <Link
                         key={type.type}
-                        href={`/fleet?type=${type.type}`}
+                        href={`/${locale}/fleet?type=${type.type}`}
                         onClick={() => setDropdownOpen(false)}
                         className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-[#E8630A]/8 hover:text-[#E8630A] transition-colors"
                       >
@@ -123,9 +131,10 @@ export default function Header() {
           </div>
 
           <div className="hidden lg:flex items-center gap-5">
-            <a href="tel:+3731234567" className="bg-[#E8630A] text-white flex items-center gap-2 px-8 py-3 text-sm font-semibold hover:bg-[#D4570A] transition-colors">
+            <LanguageSwitcher currentLocale={locale} />
+            <a href={`tel:${dict.hero.phone}`} className="bg-[#E8630A] text-white flex items-center gap-2 px-8 py-3 text-sm font-semibold hover:bg-[#D4570A] transition-colors">
               <Phone size={15} />
-              <span>+373 12 34 567</span>
+              <span>{dict.hero.phone}</span>
             </a>
           </div>
 
@@ -148,15 +157,20 @@ export default function Header() {
         <div className="lg:hidden fixed inset-0 top-16 bg-[#0C1220] z-40 flex flex-col">
           <div className="flex-1 overflow-y-auto px-4 py-6">
             <nav className="flex flex-col gap-1" aria-label="Mobile navigation">
-              {/* Mașini Section */}
+              {/* Language Switcher in Mobile */}
+              <div className="mb-4 px-3">
+                <LanguageSwitcher currentLocale={locale} />
+              </div>
+
+              {/* Cars Section */}
               <div className="mb-2">
                 <p className="text-white/40 text-xs font-semibold uppercase tracking-wider px-3 py-2">
-                  Mașini
+                  {dict.nav.fleet}
                 </p>
                 {carTypes.map((type) => (
                   <Link
                     key={type.type}
-                    href={`/fleet?type=${type.type}`}
+                    href={`/${locale}/fleet?type=${type.type}`}
                     onClick={() => setMobileOpen(false)}
                     className="text-white/90 hover:text-white py-2 px-3 pl-6 hover:bg-white/5 text-sm font-medium transition-colors block"
                   >
@@ -167,17 +181,14 @@ export default function Header() {
 
               {/* Other Nav Links */}
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.label}
                   href={link.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    scrollTo(link.href);
-                  }}
+                  onClick={() => setMobileOpen(false)}
                   className="text-white/90 hover:text-white py-2 px-3 hover:bg-white/5 text-sm font-medium transition-colors"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
             </nav>
           </div>
@@ -185,11 +196,11 @@ export default function Header() {
           {/* Bottom Call Button */}
           <div className="p-4 border-t border-white/10">
             <a
-              href="tel:+3731234567"
+              href={`tel:${dict.hero.phone}`}
               className="bg-[#E8630A] text-white flex items-center justify-center gap-2 px-8 py-4 text-sm font-semibold hover:bg-[#D4570A] transition-colors w-full"
             >
               <Phone size={18} />
-              <span>+373 12 34 567</span>
+              <span>{dict.hero.phone}</span>
             </a>
           </div>
         </div>

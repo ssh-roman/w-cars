@@ -4,7 +4,11 @@ import { useState, FormEvent } from "react";
 import { Phone, User, Send } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 
-export default function ContactForm() {
+interface ContactFormProps {
+  dict: any;
+}
+
+export default function ContactForm({ dict }: ContactFormProps) {
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -43,13 +47,13 @@ export default function ContactForm() {
             <div className="text-center mb-10">
               <div className="inline-flex items-center gap-2 bg-[#E8630A]/5 border border-[#E8630A]/20 text-[#E8630A] px-4 py-1.5 text-sm font-medium mb-4">
                 <Phone size={14} />
-                Contact
+                {dict.contact.badge}
               </div>
               <h2 className="text-3xl lg:text-4xl font-bold text-[#111827] mb-4">
-                Dorești să fii contactat?
+                {dict.contact.title}
               </h2>
               <p className="text-gray-500 text-base lg:text-lg">
-                Lasă-ne datele tale și te vom contacta în cel mai scurt timp.
+                {dict.contact.subtitle}
               </p>
             </div>
 
@@ -73,10 +77,10 @@ export default function ContactForm() {
                     </svg>
                   </div>
                   <h3 className="text-xl font-bold text-[#111827] mb-2">
-                    Mulțumim!
+                    {dict.contact.successTitle}
                   </h3>
                   <p className="text-gray-600">
-                    Te vom contacta în curând la numărul {phoneNumber}.
+                    {dict.contact.successMessage.replace('{phone}', phoneNumber)}
                   </p>
                 </div>
               ) : (
@@ -87,7 +91,7 @@ export default function ContactForm() {
                       htmlFor="name"
                       className="block text-sm font-semibold text-gray-700 mb-2"
                     >
-                      Nume complet <span className="text-red-500">*</span>
+                      {dict.contact.nameLabel} <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
                       <User
@@ -99,7 +103,7 @@ export default function ContactForm() {
                         id="name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Ion Popescu"
+                        placeholder={dict.contact.namePlaceholder}
                         required
                         className="w-full pl-12 pr-4 py-3.5 bg-white border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#E8630A] focus:border-transparent transition-all"
                       />
@@ -112,7 +116,7 @@ export default function ContactForm() {
                       htmlFor="contact-phone"
                       className="block text-sm font-semibold text-gray-700 mb-2"
                     >
-                      Număr de telefon <span className="text-red-500">*</span>
+                      {dict.contact.phoneLabel} <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
                       <Phone
@@ -124,14 +128,14 @@ export default function ContactForm() {
                         id="contact-phone"
                         value={phoneNumber}
                         onChange={(e) => setPhoneNumber(e.target.value)}
-                        placeholder="+373 XX XXX XXX"
+                        placeholder={dict.contact.phonePlaceholder}
                         required
                         pattern="[+]?[0-9]{9,15}"
                         className="w-full pl-12 pr-4 py-3.5 bg-white border border-gray-300 text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#E8630A] focus:border-transparent transition-all"
                       />
                     </div>
                     <p className="text-xs text-gray-500 mt-2">
-                      Te vom contacta pentru confirmare și detalii
+                      {dict.contact.contactConfirmation}
                     </p>
                   </div>
 
@@ -144,12 +148,12 @@ export default function ContactForm() {
                     {isSubmitting ? (
                       <>
                         <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        Se trimite...
+                        {dict.contact.sending}
                       </>
                     ) : (
                       <>
                         <Send size={18} />
-                        Trimite cererea
+                        {dict.contact.submit}
                       </>
                     )}
                   </button>
@@ -160,7 +164,7 @@ export default function ContactForm() {
             {/* Trust Badge */}
             <div className="mt-6 text-center">
               <p className="text-xs text-gray-400">
-                🔒 Datele tale sunt în siguranță și nu vor fi partajate cu terțe părți
+                🔒 {dict.contact.privacyNote}
               </p>
             </div>
           </div>

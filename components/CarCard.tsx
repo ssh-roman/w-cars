@@ -5,17 +5,25 @@ import Image from "next/image";
 import Link from "next/link";
 import { Heart, Settings, Users, Droplets, X, Phone, ChevronLeft, ChevronRight } from "lucide-react";
 import type { Car } from "@/lib/types";
+import { Locale } from "@/lib/i18n/config";
+import { getCarsData } from "@/lib/i18n/data/cars";
 
-interface CarCardProps {
+export interface CarCardProps {
   car: Car;
+  dict: any;
+  locale: Locale;
 }
 
-export default function CarCard({ car }: CarCardProps) {
+export default function CarCard({ car, dict, locale }: CarCardProps) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const carsData = getCarsData(locale);
+  const translatedTransmission = carsData.transmissions[car.transmission] || car.transmission;
+  const translatedFuel = carsData.fuelTypes[car.fuel] || car.fuel;
 
   const displayImages = car.images && car.images.length > 0 ? car.images : (car.image ? [car.image] : []);
   const hasMultipleImages = displayImages.length > 1;
@@ -96,7 +104,7 @@ export default function CarCard({ car }: CarCardProps) {
         {/* No Deposit Badge */}
         {car.hasNoDeposit && (
           <span className="absolute top-3 left-3 bg-[#E8630A] text-white text-xs font-bold px-3 py-1 shadow-sm z-10">
-            Fără garanție
+            {dict.car.noDeposit}
           </span>
         )}
 
@@ -139,7 +147,7 @@ export default function CarCard({ car }: CarCardProps) {
         )}
 
         {/* Clickable overlay to detail page */}
-        <Link href={`/fleet/${car.id}`} className="absolute inset-0 z-[5]" aria-label={`Vezi detalii ${car.name}`} />
+        <Link href={`/${locale}/fleet/${car.id}`} className="absolute inset-0 z-[5]" aria-label={`${dict.car.viewDetails} ${car.name}`} />
       </div>
 
       {/* Content */}
@@ -148,28 +156,28 @@ export default function CarCard({ car }: CarCardProps) {
         <div className="flex items-center gap-4 text-xs text-gray-500 mb-3">
           <span className="flex items-center gap-1.5">
             <Settings size={13} className="text-gray-400" />
-            {car.transmission}
+            {translatedTransmission}
           </span>
           <span className="flex items-center gap-1.5">
             <Users size={13} className="text-gray-400" />
-            {car.seats} Locuri
+            {car.seats} {dict.car.seats}
           </span>
           <span className="flex items-center gap-1.5">
             <Droplets size={13} className="text-gray-400" />
-            {car.fuel}
+            {translatedFuel}
           </span>
         </div>
 
         {/* Name */}
-        <Link href={`/fleet/${car.id}`} className="hover:text-[#E8630A] transition-colors">
+        <Link href={`/${locale}/fleet/${car.id}`} className="hover:text-[#E8630A] transition-colors">
           <h3 className="font-bold text-gray-900 text-lg mb-1">{car.name}</h3>
         </Link>
 
         {/* Price */}
         <p className="text-gray-500 text-sm mb-4">
-          de la{" "}
+          {dict.car.pricePerDay}{" "}
           <span className="text-[#E8630A] font-bold text-xl">{car.price} €</span>
-          /zi
+          {dict.car.perDay}
         </p>
 
         {/* Button */}
@@ -177,7 +185,7 @@ export default function CarCard({ car }: CarCardProps) {
           onClick={() => setModalOpen(true)}
           className="cursor-pointer mt-auto w-full bg-[#111827] text-white py-2.5 text-sm font-semibold hover:bg-[#E8630A] transition-colors"
         >
-          Solicită
+          {dict.car.reserve}
         </button>
       </div>
     </div>
@@ -201,10 +209,10 @@ export default function CarCard({ car }: CarCardProps) {
             {/* Modal Header */}
             <div className="p-4 sm:p-6 border-b border-gray-200">
               <h2 className="text-xl sm:text-2xl font-bold text-[#111827] mb-2 pr-8">
-                Solicită {car.name}
+                {dict.car.requestTitle} {car.name}
               </h2>
               <p className="text-gray-600 text-sm">
-                Introdu numărul de telefon pentru a fi contactat.
+                {dict.car.requestDescription}
               </p>
             </div>
 
@@ -245,7 +253,7 @@ export default function CarCard({ car }: CarCardProps) {
                   <div>
                     <p className="font-bold text-gray-900 text-sm">{car.name}</p>
                     <p className="text-[#E8630A] font-bold text-base">
-                      {car.price} € <span className="text-xs text-gray-500 font-normal">/zi</span>
+                      {car.price} € <span className="text-xs text-gray-500 font-normal">{dict.car.perDay}</span>
                     </p>
                   </div>
                   {displayImages.length > 0 && (
@@ -264,7 +272,7 @@ export default function CarCard({ car }: CarCardProps) {
               {/* Phone Input */}
               <div className="mb-4 sm:mb-6">
                 <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">
-                  Număr de telefon <span className="text-red-500">*</span>
+                  {dict.car.phoneLabel} <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
                   <Phone size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -273,14 +281,14 @@ export default function CarCard({ car }: CarCardProps) {
                     id="phone"
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    placeholder="+373 XX XXX XXX"
+                    placeholder={dict.car.phonePlaceholder}
                     required
                     pattern="[+]?[0-9]{9,15}"
                     className="w-full pl-10 pr-4 py-3 text-base border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#E8630A] focus:border-transparent"
                   />
                 </div>
                 <p className="text-xs text-gray-500 mt-1.5">
-                  Te vom contacta pentru confirmare
+                  {dict.car.phoneRequired}
                 </p>
               </div>
 
@@ -290,7 +298,7 @@ export default function CarCard({ car }: CarCardProps) {
                 disabled={isSubmitting}
                 className="w-full bg-[#E8630A] text-white py-3.5 text-base font-semibold hover:bg-[#D4570A] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? "Se trimite..." : "Trimite solicitarea"}
+                {isSubmitting ? dict.car.submitting : dict.car.submitRequest}
               </button>
 
               {/* Cancel Button - Mobile */}
@@ -299,7 +307,7 @@ export default function CarCard({ car }: CarCardProps) {
                 onClick={() => setModalOpen(false)}
                 className="w-full mt-3 sm:hidden text-gray-600 py-3 text-sm font-medium hover:text-gray-800 transition-colors"
               >
-                Anulează
+                {dict.car.cancel}
               </button>
             </form>
           </div>

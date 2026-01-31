@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import FloatingButton from "@/components/FloatingButton";
 import CarCard from "@/components/CarCard";
 import { cars } from "@/lib/data";
+import { Locale } from "@/lib/i18n/config";
+import { getCarsData } from "@/lib/i18n/data/cars";
 import {
   ArrowLeft,
   Settings,
@@ -23,17 +23,18 @@ import {
   X,
 } from "lucide-react";
 
-const includedFeatures = [
-  { icon: Shield, label: "Asigurare civilă inclusă" },
-  { icon: Fuel, label: "Rezervor plin la preluare" },
-  { icon: MapPin, label: "Livrare în Chișinău" },
-  { icon: Clock, label: "Suport 24/7" },
-  { icon: CheckCircle, label: "Kilometri nelimitați în Moldova" },
-  { icon: Settings, label: "Inspecție tehnică validă" },
-];
+interface CarDetailContentProps {
+  dict: any;
+  locale: Locale;
+  id: string;
+}
 
-export default function CarDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
+export default function CarDetailContent({
+  dict,
+  locale,
+  id,
+}: CarDetailContentProps) {
+  const carsData = getCarsData(locale);
   const car = cars.find((c) => c.id === id);
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -55,6 +56,15 @@ export default function CarDetailPage({ params }: { params: Promise<{ id: string
     notFound();
   }
 
+  const includedFeatures = [
+    { icon: Shield, label: dict.car.civilInsurance },
+    { icon: Fuel, label: dict.car.fullTank },
+    { icon: MapPin, label: dict.car.deliveryChisinau },
+    { icon: Clock, label: dict.car.support24 },
+    { icon: CheckCircle, label: dict.car.unlimitedKm },
+    { icon: Settings, label: dict.car.validInspection },
+  ];
+
   const relatedCars = cars
     .filter((c) => c.category === car.category && c.id !== car.id)
     .slice(0, 3);
@@ -68,14 +78,19 @@ export default function CarDetailPage({ params }: { params: Promise<{ id: string
     setModalOpen(false);
     setPhoneNumber("");
     alert(
-      `Mulțumim! Vă vom contacta în curând la numărul ${phoneNumber} pentru ${car.name}.`
+      dict.car.successMessage
+        .replace("{phone}", phoneNumber)
+        .replace("{car}", car.name)
     );
   };
 
-  return (
-    <main className="min-h-screen bg-[#F8F8F6]">
-      <Header />
+  // Translate car properties
+  const translatedTransmission = carsData.transmissions[car.transmission] || car.transmission;
+  const translatedFuel = carsData.fuelTypes[car.fuel] || car.fuel;
+  const translatedCategory = carsData.categories[car.category] || car.category;
 
+  return (
+    <>
       {/* Hero — Car Image */}
       <section className="relative bg-[#0C1220] pt-20 lg:pt-24 overflow-hidden">
         {/* Ambient glow */}
@@ -91,11 +106,11 @@ export default function CarDetailPage({ params }: { params: Promise<{ id: string
           {/* Breadcrumb */}
           <div className="pt-6 pb-4">
             <Link
-              href="/fleet"
+              href={`/${locale}/fleet`}
               className="inline-flex items-center gap-2 text-white/40 text-sm hover:text-white/70 transition-colors"
             >
               <ArrowLeft size={16} />
-              Înapoi la flotă
+              {dict.car.backToFleet}
             </Link>
           </div>
 
@@ -104,11 +119,11 @@ export default function CarDetailPage({ params }: { params: Promise<{ id: string
             <div className="w-full lg:w-2/5 order-2 lg:order-1">
               <div className="flex items-center gap-3 mb-4">
                 <span className="bg-white/5 border border-white/10 text-white/50 text-xs font-medium px-3 py-1 uppercase tracking-wider">
-                  {car.category}
+                  {translatedCategory}
                 </span>
                 {car.hasNoDeposit && (
                   <span className="bg-[#E8630A] text-white text-xs font-bold px-3 py-1">
-                    Fără garanție
+                    {dict.car.noDeposit}
                   </span>
                 )}
               </div>
@@ -118,22 +133,23 @@ export default function CarDetailPage({ params }: { params: Promise<{ id: string
               </h1>
 
               <p className="text-white/30 text-sm mb-8 max-w-md leading-relaxed">
-                Închiriază {car.name} în Chișinău. Vehicul de categorie{" "}
-                {car.category.toLowerCase()} cu transmisie{" "}
-                {car.transmission.toLowerCase()} și motor{" "}
-                {car.fuel.toLowerCase()}.
+                {dict.car.rentDescription
+                  .replace("{name}", car.name)
+                  .replace("{category}", translatedCategory.toLowerCase())
+                  .replace("{transmission}", translatedTransmission.toLowerCase())
+                  .replace("{fuel}", translatedFuel.toLowerCase())}
               </p>
 
               {/* Price block */}
               <div className="bg-white/5 border border-white/10 p-5 mb-6">
                 <p className="text-white/40 text-xs uppercase tracking-wider mb-1">
-                  Preț de la
+                  {dict.car.priceFrom}
                 </p>
                 <div className="flex items-baseline gap-1">
                   <span className="text-[#E8630A] font-bold text-4xl">
                     {car.price} €
                   </span>
-                  <span className="text-white/30 text-sm">/zi</span>
+                  <span className="text-white/30 text-sm">{dict.car.perDay}</span>
                 </div>
               </div>
 
@@ -141,7 +157,7 @@ export default function CarDetailPage({ params }: { params: Promise<{ id: string
                 onClick={() => setModalOpen(true)}
                 className="cursor-pointer w-full bg-[#E8630A] text-white py-3.5 text-sm font-semibold hover:bg-[#D4570A] transition-colors"
               >
-                Solicită această mașină
+                {dict.car.requestThisCar}
               </button>
             </div>
 
@@ -181,16 +197,16 @@ export default function CarDetailPage({ params }: { params: Promise<{ id: string
                 className="text-[#E8630A] mx-auto mb-3"
               />
               <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">
-                Transmisie
+                {dict.car.transmission}
               </p>
               <p className="font-semibold text-[#111827]">
-                {car.transmission}
+                {translatedTransmission}
               </p>
             </div>
             <div className="text-center p-4">
               <Users size={24} className="text-[#E8630A] mx-auto mb-3" />
               <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">
-                Locuri
+                {dict.car.seats}
               </p>
               <p className="font-semibold text-[#111827]">{car.seats}</p>
             </div>
@@ -200,17 +216,17 @@ export default function CarDetailPage({ params }: { params: Promise<{ id: string
                 className="text-[#E8630A] mx-auto mb-3"
               />
               <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">
-                Combustibil
+                {dict.car.fuel}
               </p>
-              <p className="font-semibold text-[#111827]">{car.fuel}</p>
+              <p className="font-semibold text-[#111827]">{translatedFuel}</p>
             </div>
             <div className="text-center p-4">
               <Shield size={24} className="text-[#E8630A] mx-auto mb-3" />
               <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">
-                Garanție
+                {dict.car.noDeposit}
               </p>
               <p className="font-semibold text-[#111827]">
-                {car.hasNoDeposit ? "Fără garanție" : "Standard"}
+                {car.hasNoDeposit ? dict.car.noDeposit : dict.car.standardDeposit}
               </p>
             </div>
           </div>
@@ -224,7 +240,7 @@ export default function CarDetailPage({ params }: { params: Promise<{ id: string
             {/* Included Features */}
             <div className="lg:col-span-3">
               <h2 className="text-2xl font-bold text-[#111827] mb-6">
-                Ce este inclus
+                {dict.car.whatIncluded}
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {includedFeatures.map((feature) => {
@@ -251,18 +267,18 @@ export default function CarDetailPage({ params }: { params: Promise<{ id: string
                   {car.name}
                 </h3>
                 <p className="text-gray-400 text-sm mb-5">
-                  {car.category} · {car.transmission} · {car.fuel}
+                  {translatedCategory} · {translatedTransmission} · {translatedFuel}
                 </p>
 
                 <div className="border-t border-gray-100 pt-4 mb-5">
                   <div className="flex items-baseline justify-between">
-                    <span className="text-gray-500 text-sm">Preț/zi</span>
+                    <span className="text-gray-500 text-sm">{dict.car.pricePerDay}</span>
                     <span className="text-[#E8630A] font-bold text-2xl">
                       {car.price} €
                     </span>
                   </div>
                   <div className="flex items-baseline justify-between mt-2">
-                    <span className="text-gray-500 text-sm">Preț/săptămână</span>
+                    <span className="text-gray-500 text-sm">{dict.car.pricePerWeek}</span>
                     <span className="text-[#111827] font-semibold">
                       {Math.round(car.price * 6)} €
                     </span>
@@ -273,14 +289,14 @@ export default function CarDetailPage({ params }: { params: Promise<{ id: string
                   onClick={() => setModalOpen(true)}
                   className="cursor-pointer w-full bg-[#E8630A] text-white py-3 text-sm font-semibold hover:bg-[#D4570A] transition-colors mb-3"
                 >
-                  Solicită acum
+                  {dict.car.requestNow}
                 </button>
                 <a
                   href="tel:+37368585404"
                   className="w-full border border-gray-200 text-[#111827] py-3 text-sm font-semibold hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
                 >
                   <Phone size={14} />
-                  Sună direct
+                  {dict.car.callDirect}
                 </a>
               </div>
             </div>
@@ -294,25 +310,24 @@ export default function CarDetailPage({ params }: { params: Promise<{ id: string
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-2xl font-bold text-[#111827]">
-                Alte {car.category}-uri
+                {dict.car.otherCategory.replace("{category}", translatedCategory)}
               </h2>
               <Link
-                href={`/fleet?type=${car.category}`}
+                href={`/${locale}/fleet?type=${car.category}`}
                 className="text-[#E8630A] text-sm font-semibold hover:underline"
               >
-                Vezi toate
+                {dict.car.viewAll}
               </Link>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               {relatedCars.map((c) => (
-                <CarCard key={c.id} car={c} />
+                <CarCard key={c.id} car={c} dict={dict} locale={locale} />
               ))}
             </div>
           </div>
         </section>
       )}
 
-      <Footer />
       <FloatingButton />
 
       {/* Modal */}
@@ -335,10 +350,10 @@ export default function CarDetailPage({ params }: { params: Promise<{ id: string
 
             <div className="p-4 sm:p-6 border-b border-gray-200">
               <h2 className="text-xl sm:text-2xl font-bold text-[#111827] mb-2 pr-8">
-                Solicită {car.name}
+                {dict.car.requestTitle} {car.name}
               </h2>
               <p className="text-gray-600 text-sm">
-                Introdu numărul de telefon pentru a fi contactat.
+                {dict.car.requestDescription}
               </p>
             </div>
 
@@ -352,7 +367,7 @@ export default function CarDetailPage({ params }: { params: Promise<{ id: string
                     <p className="text-[#E8630A] font-bold text-base">
                       {car.price} €{" "}
                       <span className="text-xs text-gray-500 font-normal">
-                        /zi
+                        {dict.car.perDay}
                       </span>
                     </p>
                   </div>
@@ -374,7 +389,7 @@ export default function CarDetailPage({ params }: { params: Promise<{ id: string
                   htmlFor="phone"
                   className="block text-sm font-semibold text-gray-700 mb-2"
                 >
-                  Număr de telefon <span className="text-red-500">*</span>
+                  {dict.car.phoneLabel} <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
                   <Phone
@@ -386,14 +401,14 @@ export default function CarDetailPage({ params }: { params: Promise<{ id: string
                     id="phone"
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    placeholder="+373 XX XXX XXX"
+                    placeholder={dict.car.phonePlaceholder}
                     required
                     pattern="[+]?[0-9]{9,15}"
                     className="w-full pl-10 pr-4 py-3 text-base border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#E8630A] focus:border-transparent"
                   />
                 </div>
                 <p className="text-xs text-gray-500 mt-1.5">
-                  Te vom contacta pentru confirmare
+                  {dict.car.phoneRequired}
                 </p>
               </div>
 
@@ -402,7 +417,7 @@ export default function CarDetailPage({ params }: { params: Promise<{ id: string
                 disabled={isSubmitting}
                 className="w-full bg-[#E8630A] text-white py-3.5 text-base font-semibold hover:bg-[#D4570A] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? "Se trimite..." : "Trimite solicitarea"}
+                {isSubmitting ? dict.car.submitting : dict.car.submitRequest}
               </button>
 
               <button
@@ -410,12 +425,12 @@ export default function CarDetailPage({ params }: { params: Promise<{ id: string
                 onClick={() => setModalOpen(false)}
                 className="w-full mt-3 sm:hidden text-gray-600 py-3 text-sm font-medium hover:text-gray-800 transition-colors"
               >
-                Anulează
+                {dict.car.cancel}
               </button>
             </form>
           </div>
         </div>
       )}
-    </main>
+    </>
   );
 }

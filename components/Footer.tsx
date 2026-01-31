@@ -8,21 +8,28 @@ import {
   Twitter,
   Globe,
 } from "lucide-react";
+import { Dictionary } from "@/lib/i18n/types";
+import { Locale } from "@/lib/i18n/config";
 
-const companyLinks = [
-  { label: "Despre noi", href: "/despre-noi" },
-  { label: "Mașinile", href: "/fleet" },
-  { label: "Contacte", href: "/contact" },
-];
+interface FooterProps {
+  dict: Dictionary;
+  locale: Locale;
+}
 
-const clientLinks = [
-  { label: "Cum funcționează", href: "/#steps" },
-  { label: "Întrebări", href: "/#faq" },
-  { label: "Termeni și Condiții", href: "/termeni" },
-  { label: "Confidențialitate", href: "/confidentialitate" },
-];
+export default function Footer({ dict, locale }: FooterProps) {
+  const companyLinks = [
+    { label: dict.footer.aboutUs, href: `/${locale}/about` },
+    { label: dict.footer.fleet, href: `/${locale}/fleet` },
+    { label: dict.footer.contact, href: `/${locale}/contact` },
+  ];
 
-export default function Footer() {
+  const clientLinks = [
+    { label: dict.footer.howItWorks, href: `/${locale}/#steps` },
+    { label: dict.footer.faq, href: `/${locale}/#faq` },
+    { label: dict.footer.terms, href: `/${locale}/terms` },
+    { label: dict.footer.privacy, href: `/${locale}/privacy` },
+  ];
+
   return (
     <footer id="contact" className="bg-[#0C1220] text-white">
       {/* Main Footer Grid */}
@@ -30,10 +37,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           {/* Company Info */}
           <div>
-            <h3 className="text-xl font-bold mb-4">WRent</h3>
+            <h3 className="text-xl font-bold mb-4">{dict.footer.companyName}</h3>
             <p className="text-white/40 text-sm leading-relaxed mb-6">
-              Serviciul de închiriere auto de top în Moldova. Calitate,
-              profesionalism și prețuri avantajoase pentru orice nevoie.
+              {dict.footer.tagline}
             </p>
             <div className="flex gap-3">
               <a
@@ -60,9 +66,9 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Companie */}
+          {/* Company */}
           <div>
-            <h4 className="font-semibold text-base mb-4">Companie</h4>
+            <h4 className="font-semibold text-base mb-4">{dict.footer.companyTitle}</h4>
             <ul className="flex flex-col gap-2.5">
               {companyLinks.map((item) => (
                 <li key={item.label}>
@@ -77,9 +83,9 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Clienți */}
+          {/* Clients */}
           <div>
-            <h4 className="font-semibold text-base mb-4">Clienți</h4>
+            <h4 className="font-semibold text-base mb-4">{dict.footer.clientsTitle}</h4>
             <ul className="flex flex-col gap-2.5">
               {clientLinks.map((item) => (
                 <li key={item.label}>
@@ -94,41 +100,41 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contacte */}
+          {/* Contact */}
           <div>
-            <h4 className="font-semibold text-base mb-4">Contacte</h4>
+            <h4 className="font-semibold text-base mb-4">{dict.footer.contactTitle}</h4>
             <ul className="flex flex-col gap-3">
               <li className="flex items-start gap-2.5">
                 <Phone size={15} className="text-[#E8630A]/50 mt-0.5 flex-shrink-0" />
                 <a
-                  href="tel:+37368585404"
+                  href={`tel:${dict.footer.phone}`}
                   className="text-white/40 hover:text-white text-sm transition-colors"
                 >
-                  +37368585404
+                  {dict.footer.phone}
                 </a>
               </li>
               <li className="flex items-start gap-2.5">
                 <Mail size={15} className="text-[#E8630A]/50 mt-0.5 flex-shrink-0" />
                 <a
-                  href="mailto:rentinfo@gmail.com"
+                  href={`mailto:${dict.footer.email}`}
                   className="text-white/40 hover:text-white text-sm transition-colors"
                 >
-                  rentinfo@gmail.com
+                  {dict.footer.email}
                 </a>
               </li>
               <li className="flex items-start gap-2.5">
                 <MapPin size={15} className="text-[#E8630A]/50 mt-0.5 flex-shrink-0" />
                 <span className="text-white/40 text-sm">
-                  Mun. Chișinău, MD-2001
+                  {dict.footer.address}
                 </span>
               </li>
               <li className="flex items-start gap-2.5">
                 <Mail size={15} className="text-[#E8630A]/50 mt-0.5 flex-shrink-0" />
                 <a
-                  href="mailto:Office@auto.md"
+                  href={`mailto:${dict.footer.emailOffice}`}
                   className="text-white/40 hover:text-white text-sm transition-colors"
                 >
-                  Office@auto.md
+                  {dict.footer.emailOffice}
                 </a>
               </li>
             </ul>
@@ -141,21 +147,21 @@ export default function Footer() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-white/25 text-xs">
-              © 2025 W.Rent. Toate drepturile rezervate.
+              {dict.footer.rights}
             </p>
             <div className="flex items-center gap-4">
               <Link
-                href="/confidentialitate"
+                href={`/${locale}/privacy`}
                 className="text-white/25 hover:text-white/50 text-xs transition-colors"
               >
-                Politica de Cookies
+                {dict.footer.cookiePolicy}
               </Link>
               <span className="text-white/10">|</span>
               <Link
-                href="/termeni"
+                href={`/${locale}/terms`}
                 className="text-white/25 hover:text-white/50 text-xs transition-colors"
               >
-                Termeni și Condiții
+                {dict.footer.terms}
               </Link>
             </div>
             <div className="flex items-center gap-3">
@@ -169,7 +175,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-1 text-white/25 text-xs">
                 <Globe size={12} />
-                Moldova
+                {dict.footer.country}
               </div>
             </div>
           </div>

@@ -2,49 +2,50 @@
 
 import { CheckCircle, FileText, Car, HeadphonesIcon } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
+import { Dictionary } from "@/lib/i18n/types";
 
-const steps = [
-  {
-    id: "1",
-    icon: Car,
-    title: "Alege mașina",
-    description: "Explorează flota noastră și selectează vehiculul potrivit pentru nevoile tale. Peste 16 modele disponibile.",
-    step: "Pasul 1",
-  },
-  {
-    id: "2",
-    icon: FileText,
-    title: "Completează cererea",
-    description: "Introdu datele tale de contact și perioada închirierii. Fără documente complicate sau garanții.",
-    step: "Pasul 2",
-  },
-  {
-    id: "3",
-    icon: HeadphonesIcon,
-    title: "Confirmarea",
-    description: "Echipa noastră te va contacta în maximum 2 ore pentru confirmare și detalii despre preluarea mașinii.",
-    step: "Pasul 3",
-  },
-  {
-    id: "4",
-    icon: CheckCircle,
-    title: "Preia și pornește",
-    description: "Preluarea rapidă cu livrare la adresa ta în Chișinău. Contractul se semnează în 5 minute.",
-    step: "Pasul 4",
-  },
-];
+interface ValuePropositionProps {
+  dict: Dictionary;
+}
 
-export default function ValueProposition() {
+export default function ValueProposition({ dict }: ValuePropositionProps) {
+  const steps = [
+    {
+      id: "1",
+      icon: Car,
+      title: dict.valueProposition.step1Title,
+      description: dict.valueProposition.step1Description,
+    },
+    {
+      id: "2",
+      icon: FileText,
+      title: dict.valueProposition.step2Title,
+      description: dict.valueProposition.step2Description,
+    },
+    {
+      id: "3",
+      icon: HeadphonesIcon,
+      title: dict.valueProposition.step3Title,
+      description: dict.valueProposition.step3Description,
+    },
+    {
+      id: "4",
+      icon: CheckCircle,
+      title: dict.valueProposition.step4Title,
+      description: dict.valueProposition.step4Description,
+    },
+  ];
+
   return (
     <section id="steps" className="py-16 lg:py-24 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal>
           <div className="text-center mb-12 lg:mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-[#111827] mb-4">
-              Cum funcționează?
+              {dict.valueProposition.title}
             </h2>
             <p className="text-gray-500 max-w-2xl mx-auto text-base lg:text-lg">
-              Procesul de închiriere este simplu și rapid. În doar 4 pași simpli poți fi la volanul mașinii tale.
+              {dict.valueProposition.subtitle}
             </p>
           </div>
         </ScrollReveal>

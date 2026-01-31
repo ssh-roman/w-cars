@@ -2,8 +2,16 @@
 
 import Image from "next/image";
 import { ArrowDown } from "lucide-react";
+import Link from "next/link";
+import { Dictionary } from "@/lib/i18n/types";
+import { Locale } from "@/lib/i18n/config";
 
-export default function Hero() {
+interface HeroProps {
+  dict: Dictionary;
+  locale: Locale;
+}
+
+export default function Hero({ dict, locale }: HeroProps) {
   return (
     <section className="relative bg-[#0C1220] overflow-hidden min-h-[85vh] flex flex-col">
       {/* Atmospheric gradient overlays */}
@@ -37,27 +45,27 @@ export default function Hero() {
             <div className="w-full lg:flex-1 text-center lg:text-left">
               <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-1.5 text-xs font-medium text-white/60 uppercase tracking-widest mb-6 animate-on-load animate-fade-in-up">
                 <span className="w-1.5 h-1.5 bg-[#E8630A]"></span>
-                Chișinău, Moldova
+                {dict.hero.location}
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.1] mb-5 tracking-tight animate-on-load animate-fade-in-up animation-delay-100">
-                Închiriază o
+                {dict.hero.title}
                 <br />
-                mașină în{" "}
-                <span className="text-[#E8630A]">Chișinău</span>
+                {dict.hero.titleLine2}{" "}
+                <span className="text-[#E8630A]">{dict.hero.titleHighlight}</span>
               </h1>
 
               <p className="text-white/50 text-base lg:text-lg max-w-md mb-8 leading-relaxed animate-on-load animate-fade-in-up animation-delay-200">
-                De la <span className="font-semibold text-[#E8630A]">23 €/zi</span>. Prețuri avantajoase, fără garanție, livrare rapidă.
+                {dict.hero.subtitle} <span className="font-semibold text-[#E8630A]">{dict.hero.price}</span>. {dict.hero.description}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start animate-on-load animate-fade-in-up animation-delay-300">
-                <a href="#cars" className="bg-[#E8630A] text-white px-8 py-3.5 text-sm font-semibold hover:bg-[#D4570A] transition-colors inline-flex items-center justify-center gap-2">
-                  Vezi flota
+                <Link href={`/${locale}/fleet`} className="bg-[#E8630A] text-white px-8 py-3.5 text-sm font-semibold hover:bg-[#D4570A] transition-colors inline-flex items-center justify-center gap-2">
+                  {dict.hero.cta}
                   <ArrowDown size={16} />
-                </a>
-                <a href="tel:+3731234567" className="border border-white/20 text-white px-8 py-3.5 text-sm font-semibold hover:bg-white/5 transition-colors inline-flex items-center justify-center gap-2">
-                  Sună acum
+                </Link>
+                <a href={`tel:${dict.hero.phone}`} className="border border-white/20 text-white px-8 py-3.5 text-sm font-semibold hover:bg-white/5 transition-colors inline-flex items-center justify-center gap-2">
+                  {dict.hero.ctaSecondary}
                 </a>
               </div>
             </div>

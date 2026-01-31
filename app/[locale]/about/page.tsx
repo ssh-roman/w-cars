@@ -1,46 +1,52 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import FloatingButton from "@/components/FloatingButton";
-import { Car, Users, Clock, MapPin, Shield, Award, HeadphonesIcon } from "lucide-react";
+import { getDictionary } from "@/lib/i18n/get-dictionary";
+import { Locale } from "@/lib/i18n/config";
+import { Car, Users, Clock, Award, Shield, HeadphonesIcon, MapPin } from "lucide-react";
+import Link from "next/link";
 
-const stats = [
-  { value: "100+", label: "Mașini disponibile", icon: Car },
-  { value: "5000+", label: "Clienți mulțumiți", icon: Users },
-  { value: "24/7", label: "Suport clienți", icon: Clock },
-  { value: "10+", label: "Ani de experiență", icon: Award },
-];
+export default async function AboutPage({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}) {
+  const { locale } = await params;
+  const dict = await getDictionary(locale);
 
-const values = [
-  {
-    icon: Shield,
-    title: "Transparență",
-    description:
-      "Fără costuri ascunse sau surprize. Prețul pe care îl vezi este prețul pe care îl plătești. Toate condițiile sunt clare de la început.",
-  },
-  {
-    icon: HeadphonesIcon,
-    title: "Suport dedicat",
-    description:
-      "Echipa noastră este disponibilă non-stop pentru orice întrebare sau situație. Suntem mereu la un telefon distanță.",
-  },
-  {
-    icon: Car,
-    title: "Calitate",
-    description:
-      "Fiecare mașină din flota noastră trece prin inspecții regulate. Vehicule curate, întreținute și pregătite pentru drum.",
-  },
-  {
-    icon: MapPin,
-    title: "Flexibilitate",
-    description:
-      "Livrare la adresă în Chișinău, perioade flexibile de închiriere și opțiuni fără garanție pentru confortul tău.",
-  },
-];
+  const stats = [
+    { value: dict.about.stat1Value, label: dict.about.stat1Label, icon: Car },
+    { value: dict.about.stat2Value, label: dict.about.stat2Label, icon: Users },
+    { value: dict.about.stat3Value, label: dict.about.stat3Label, icon: Clock },
+    { value: dict.about.stat4Value, label: dict.about.stat4Label, icon: Award },
+  ];
 
-export default function DesprePage() {
+  const values = [
+    {
+      icon: Shield,
+      title: dict.about.value1Title,
+      description: dict.about.value1Description,
+    },
+    {
+      icon: HeadphonesIcon,
+      title: dict.about.value2Title,
+      description: dict.about.value2Description,
+    },
+    {
+      icon: Car,
+      title: dict.about.value3Title,
+      description: dict.about.value3Description,
+    },
+    {
+      icon: MapPin,
+      title: dict.about.value4Title,
+      description: dict.about.value4Description,
+    },
+  ];
+
   return (
     <main className="min-h-screen bg-[#F8F8F6]">
-      <Header />
+      <Header dict={dict} locale={locale} />
 
       {/* Hero */}
       <section className="relative bg-[#0C1220] pt-32 pb-16 lg:pb-20">
@@ -55,15 +61,13 @@ export default function DesprePage() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-1.5 text-xs font-medium text-white/50 uppercase tracking-widest mb-6">
               <span className="w-1.5 h-1.5 bg-[#E8630A]"></span>
-              Despre W.Rent
+              {dict.about.badge}
             </div>
             <h1 className="text-4xl lg:text-5xl font-bold text-white mb-5 leading-tight">
-              Servicii de închiriere auto de încredere în Moldova
+              {dict.about.title}
             </h1>
             <p className="text-white/40 text-base lg:text-lg max-w-2xl leading-relaxed">
-              Din 2014, W.Rent oferă servicii profesionale de închiriere auto în
-              Chișinău. Am început cu 5 mașini și astăzi avem o flotă de peste
-              100 de vehicule.
+              {dict.about.intro}
             </p>
           </div>
         </div>
@@ -104,33 +108,13 @@ export default function DesprePage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl lg:text-4xl font-bold text-[#111827] mb-6">
-              Povestea noastră
+              {dict.about.storyTitle}
             </h2>
             <div className="space-y-4 text-gray-600 leading-relaxed">
-              <p>
-                W.Rent a fost fondată în 2014 cu un scop simplu: să facem
-                închirierea unei mașini în Chișinău la fel de ușoară ca și
-                chemarea unui taxi. Am început cu o flotă mică de 5 vehicule
-                și o echipă de 3 persoane.
-              </p>
-              <p>
-                De-a lungul anilor, am crescut organic, ascultând feedback-ul
-                clienților și adaptându-ne serviciile. Am fost printre primii
-                din Moldova care au oferit opțiunea de închiriere fără garanție
-                — un pas care a schimbat industria locală.
-              </p>
-              <p>
-                Astăzi, cu o flotă de peste 100 de mașini — de la vehicule
-                economice la SUV-uri premium — deservim atât clienți
-                individuali, cât și companii. Fiecare mașină trece prin
-                inspecții regulate, iar echipa noastră de suport este
-                disponibilă 24/7.
-              </p>
-              <p>
-                Misiunea noastră rămâne aceeași: mobilitate accesibilă,
-                transparentă și de calitate pentru toți cei care au nevoie de
-                un vehicul în Moldova.
-              </p>
+              <p>{dict.about.storyP1}</p>
+              <p>{dict.about.storyP2}</p>
+              <p>{dict.about.storyP3}</p>
+              <p>{dict.about.storyP4}</p>
             </div>
           </div>
         </div>
@@ -141,11 +125,10 @@ export default function DesprePage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-[#111827] mb-4">
-              Valorile noastre
+              {dict.about.valuesTitle}
             </h2>
             <p className="text-gray-500 max-w-2xl mx-auto">
-              Principiile care ne ghidează în fiecare zi și în fiecare
-              interacțiune cu clienții noștri.
+              {dict.about.valuesSubtitle}
             </p>
           </div>
 
@@ -177,31 +160,30 @@ export default function DesprePage() {
       <section className="py-16 lg:py-20 bg-[#0C1220]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl lg:text-3xl font-bold text-white mb-4">
-            Pregătit să închiriezi?
+            {dict.about.ctaTitle}
           </h2>
           <p className="text-white/40 mb-8 max-w-lg mx-auto">
-            Alege din flota noastră de peste 100 de mașini și fii pe drum în
-            mai puțin de 2 ore.
+            {dict.about.ctaSubtitle}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a
-              href="/fleet"
+            <Link
+              href={`/${locale}/fleet`}
               className="bg-[#E8630A] text-white px-8 py-3.5 text-sm font-semibold hover:bg-[#D4570A] transition-colors inline-block"
             >
-              Vezi flota
-            </a>
-            <a
-              href="/contact"
+              {dict.about.ctaFleet}
+            </Link>
+            <Link
+              href={`/${locale}/contact`}
               className="border border-white/20 text-white px-8 py-3.5 text-sm font-semibold hover:bg-white/5 transition-colors inline-block"
             >
-              Contactează-ne
-            </a>
+              {dict.about.ctaContact}
+            </Link>
           </div>
         </div>
       </section>
 
-      <Footer />
-      <FloatingButton />
+      <Footer dict={dict} locale={locale} />
+      {/* <FloatingButton /> */}
     </main>
   );
 }

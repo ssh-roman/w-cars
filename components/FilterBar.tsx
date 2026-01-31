@@ -2,19 +2,25 @@
 
 import { useState } from "react";
 import { Search, MapPin, ChevronDown } from "lucide-react";
+import { Dictionary } from "@/lib/i18n/types";
+import { Locale } from "@/lib/i18n/config";
 
-const carTypes = [
-  "Orice auto",
-  "Sedan",
-  "SUV",
-  "Hatchback",
-  "Coupe",
-  "Minivan",
-  "Electric",
-];
+interface FilterBarProps {
+  dict: Dictionary;
+  locale: Locale;
+}
 
-export default function FilterBar() {
-  const [carType, setCarType] = useState("Orice auto");
+export default function FilterBar({ dict, locale }: FilterBarProps) {
+  const carTypes = [
+    dict.filter.anyType,
+    dict.filter.sedan,
+    dict.filter.suv,
+    dict.filter.hatchback,
+    dict.filter.coupe,
+    dict.filter.minivan,
+    dict.filter.electric,
+  ];
+  const [carType, setCarType] = useState(dict.filter.anyType);
   const [startDate, setStartDate] = useState("");
   const [location, setLocation] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -30,7 +36,7 @@ export default function FilterBar() {
           {/* Car Type */}
           <div className="flex-1 relative">
             <label className="block text-[10px] font-semibold text-gray-500 mb-1 uppercase tracking-wide">
-              Tip
+              {dict.filter.type}
             </label>
             <div className="relative">
               <select
@@ -54,7 +60,7 @@ export default function FilterBar() {
           {/* Start Date */}
           <div className="flex-1">
             <label className="block text-[10px] font-semibold text-gray-500 mb-1 uppercase tracking-wide">
-              Pornire
+              {dict.filter.startDate}
             </label>
             <input
               type="date"
@@ -67,7 +73,7 @@ export default function FilterBar() {
           {/* Location */}
           <div className="flex-1 relative">
             <label className="block text-[10px] font-semibold text-gray-500 mb-1 uppercase tracking-wide">
-              Locație
+              {dict.filter.location}
             </label>
             <div className="relative">
               <MapPin
@@ -79,9 +85,9 @@ export default function FilterBar() {
                 onChange={(e) => setLocation(e.target.value)}
                 className="w-full appearance-none bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 pl-8 pr-8 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#E8630A] focus:border-transparent cursor-pointer transition-all"
               >
-                <option value="">Selectează locația</option>
-                <option value="Aeroportul Internațional Chișinău">Aeroportul Internațional Chișinău</option>
-                <option value="Str. Ștefan cel Mare 124, Chișinău">Str. Ștefan cel Mare 124, Chișinău</option>
+                <option value="">{dict.filter.selectLocation}</option>
+                <option value={dict.filter.airportLocation}>{dict.filter.airportLocation}</option>
+                <option value={dict.filter.cityLocation}>{dict.filter.cityLocation}</option>
               </select>
               <ChevronDown
                 size={14}
@@ -93,7 +99,7 @@ export default function FilterBar() {
           {/* End Date */}
           <div className="flex-1">
             <label className="block text-[10px] font-semibold text-gray-500 mb-1 uppercase tracking-wide">
-              Retur
+              {dict.filter.endDate}
             </label>
             <input
               type="date"
@@ -110,7 +116,7 @@ export default function FilterBar() {
               className="w-full sm:w-auto bg-[#E8630A] text-white rounded-lg px-6 py-2 text-sm font-semibold hover:bg-[#D4570A] transition-all duration-200 flex items-center gap-2 justify-center shadow-lg shadow-[#E8630A]/30 hover:shadow-xl hover:shadow-[#E8630A]/40"
             >
               <Search size={16} />
-              Caută
+              {dict.filter.search}
             </button>
           </div>
         </div>
