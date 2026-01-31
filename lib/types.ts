@@ -10,6 +10,7 @@ export interface Car {
   gradientFrom: string;
   gradientTo: string;
   image?: string;
+  images?: string[];
 }
 
 export interface Testimonial {

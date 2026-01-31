@@ -1,4 +1,7 @@
+"use client";
+
 import { CheckCircle, FileText, Car, HeadphonesIcon } from "lucide-react";
+import ScrollReveal from "./ScrollReveal";
 
 const steps = [
   {
@@ -35,23 +38,24 @@ export default function ValueProposition() {
   return (
     <section id="steps" className="py-16 lg:py-24 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 lg:mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold text-[#111827] mb-4">
-            Cum funcționează?
-          </h2>
-          <p className="text-gray-500 max-w-2xl mx-auto text-base lg:text-lg">
-            Procesul de închiriere este simplu și rapid. În doar 4 pași simpli poți fi la volanul mașinii tale.
-          </p>
-        </div>
+        <ScrollReveal>
+          <div className="text-center mb-12 lg:mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-[#111827] mb-4">
+              Cum funcționează?
+            </h2>
+            <p className="text-gray-500 max-w-2xl mx-auto text-base lg:text-lg">
+              Procesul de închiriere este simplu și rapid. În doar 4 pași simpli poți fi la volanul mașinii tale.
+            </p>
+          </div>
+        </ScrollReveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (
-              <div
-                key={step.id}
-                className="bg-[#F8F8F6] border border-gray-200 p-6 relative group hover:shadow-lg hover:shadow-black/5 transition-all duration-300"
-              >
+              <ScrollReveal key={step.id} delay={index * 100}>
+                <div className="bg-[#F8F8F6] border border-gray-200 p-6 relative group hover:shadow-lg hover:shadow-black/5 transition-all duration-300 hover:-translate-y-1"
+                >
                 {/* Step Number */}
                 <div className="absolute -top-3 -left-3 w-12 h-12 bg-[#111827] text-white flex items-center justify-center font-bold text-lg">
                   {index + 1}
@@ -72,11 +76,12 @@ export default function ValueProposition() {
                   {step.description}
                 </p>
 
-                {/* Connection Line - Desktop Only */}
-                {index < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-16 -right-4 w-8 h-0.5 bg-[#E8630A]/20" />
-                )}
-              </div>
+                  {/* Connection Line - Desktop Only */}
+                  {index < steps.length - 1 && (
+                    <div className="hidden lg:block absolute top-16 -right-4 w-8 h-0.5 bg-[#E8630A]/20" />
+                  )}
+                </div>
+              </ScrollReveal>
             );
           })}
         </div>

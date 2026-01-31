@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Heart, Settings, Users, Droplets, X, Phone } from "lucide-react";
+import { Heart, Settings, Users, Droplets, X, Phone, ChevronLeft, ChevronRight } from "lucide-react";
 import type { Car } from "@/lib/types";
 
 interface CarCardProps {
@@ -15,6 +15,28 @@ export default function CarCard({ car }: CarCardProps) {
   const [modalOpen, setModalOpen] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const displayImages = car.images && car.images.length > 0 ? car.images : (car.image ? [car.image] : []);
+  const hasMultipleImages = displayImages.length > 1;
+
+  const nextImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev + 1) % displayImages.length);
+  };
+
+  const previousImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev - 1 + displayImages.length) % displayImages.length);
+  };
+
+  const goToImage = (index: number, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex(index);
+  };
 
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -54,10 +76,10 @@ export default function CarCard({ car }: CarCardProps) {
     <div className="bg-white overflow-hidden shadow-sm border border-gray-200 hover:shadow-lg hover:shadow-black/5 transition-all duration-300 hover:-translate-y-1 flex flex-col group">
       {/* Image Area */}
       <div className="relative h-64 bg-gray-100 overflow-hidden">
-        {car.image ? (
+        {displayImages.length > 0 ? (
           <Image
-            src={car.image}
-            alt={car.name}
+            src={displayImages[currentImageIndex]}
+            alt={`${car.name} - Image ${currentImageIndex + 1}`}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-500"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -78,24 +100,43 @@ export default function CarCard({ car }: CarCardProps) {
           </span>
         )}
 
-        {/* Favorite Button */}
-        <button
-          onClick={() => setIsFavorite(!isFavorite)}
-          className="absolute top-3 rounded-full right-3 w-8 h-8 flex items-center justify-center bg-white/90 shadow-sm hover:scale-110 transition-transform z-10"
-          aria-label={isFavorite ? "Eliminare din preferinte" : "Adăugare la preferinte"}
-        >
-          <Heart
-            size={16}
-            className={
-              isFavorite ? "fill-[#E8630A] text-[#E8630A]" : "text-gray-400"
-            }
-          />
-        </button>
+        {/* Navigation Arrows - only show if multiple images */}
+        {hasMultipleImages && (
+          <>
+            <button
+              onClick={previousImage}
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-1.5 rounded-full transition-all z-20 opacity-0 group-hover:opacity-100"
+              aria-label="Previous image"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={nextImage}
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-1.5 rounded-full transition-all z-20 opacity-0 group-hover:opacity-100"
+              aria-label="Next image"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </>
+        )}
 
-        {/* Category Label */}
-        <span className="absolute bottom-3 left-3 bg-black/60 text-white text-xs font-medium px-2 py-1 z-10">
-          {car.category}
-        </span>
+        {/* Image Counter & Dots - only show if multiple images */}
+        {hasMultipleImages && (
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10">
+            {displayImages.map((_, index) => (
+              <button
+                key={index}
+                onClick={(e) => goToImage(index, e)}
+                className={`h-1.5 rounded-full transition-all ${
+                  index === currentImageIndex
+                    ? "w-6 bg-white"
+                    : "w-1.5 bg-white/50 hover:bg-white/75"
+                }`}
+                aria-label={`Go to image ${index + 1}`}
+              />
+            ))}
+          </div>
+        )}
 
         {/* Clickable overlay to detail page */}
         <Link href={`/fleet/${car.id}`} className="absolute inset-0 z-[5]" aria-label={`Vezi detalii ${car.name}`} />
@@ -207,10 +248,10 @@ export default function CarCard({ car }: CarCardProps) {
                       {car.price} € <span className="text-xs text-gray-500 font-normal">/zi</span>
                     </p>
                   </div>
-                  {car.image && (
+                  {displayImages.length > 0 && (
                     <div className="relative w-20 h-14 flex-shrink-0">
                       <Image
-                        src={car.image}
+                        src={displayImages[currentImageIndex]}
                         alt={car.name}
                         fill
                         className="object-cover"

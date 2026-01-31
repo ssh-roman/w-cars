@@ -1,6 +1,5 @@
 "use client";
 
-import FilterBar from "./FilterBar";
 import Image from "next/image";
 import { ArrowDown } from "lucide-react";
 
@@ -32,27 +31,27 @@ export default function Hero() {
 
       <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex flex-col">
         {/* Spacer for fixed header */}
-        <div className="pt-28 lg:pt-36 pb-8 lg:pb-12 flex-1 flex flex-col justify-center">
+        <div className="pt-16 lg:pt-36 pb-8 lg:pb-12 flex-1 flex flex-col justify-center">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-4">
             {/* Left - Text Content */}
             <div className="w-full lg:flex-1 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-1.5 text-xs font-medium text-white/60 uppercase tracking-widest mb-6">
+              <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-1.5 text-xs font-medium text-white/60 uppercase tracking-widest mb-6 animate-on-load animate-fade-in-up">
                 <span className="w-1.5 h-1.5 bg-[#E8630A]"></span>
                 Chișinău, Moldova
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.1] mb-5 tracking-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.1] mb-5 tracking-tight animate-on-load animate-fade-in-up animation-delay-100">
                 Închiriază o
                 <br />
                 mașină în{" "}
                 <span className="text-[#E8630A]">Chișinău</span>
               </h1>
 
-              <p className="text-white/50 text-base lg:text-lg max-w-md mb-8 leading-relaxed">
-                De la <span className="font-semibold text-[#D4AF37]">23 €/zi</span>. Prețuri avantajoase, fără garanție, livrare rapidă.
+              <p className="text-white/50 text-base lg:text-lg max-w-md mb-8 leading-relaxed animate-on-load animate-fade-in-up animation-delay-200">
+                De la <span className="font-semibold text-[#E8630A]">23 €/zi</span>. Prețuri avantajoase, fără garanție, livrare rapidă.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+              <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start animate-on-load animate-fade-in-up animation-delay-300">
                 <a href="#cars" className="bg-[#E8630A] text-white px-8 py-3.5 text-sm font-semibold hover:bg-[#D4570A] transition-colors inline-flex items-center justify-center gap-2">
                   Vezi flota
                   <ArrowDown size={16} />
@@ -64,7 +63,7 @@ export default function Hero() {
             </div>
 
             {/* Right - Hero Car */}
-            <div className="w-full lg:flex-1 flex justify-center lg:justify-end relative">
+            <div className="w-full lg:flex-1 flex justify-center lg:justify-end relative animate-on-load animate-fade-in-right animation-delay-400">
               {/* Glow behind car */}
               <div
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] opacity-20"
@@ -73,7 +72,7 @@ export default function Hero() {
                 }}
               />
               <Image
-                src="/hero-car.webp"
+                src="/hero-car.png"
                 alt="Car Hero"
                 width={600}
                 height={360}
@@ -84,9 +83,6 @@ export default function Hero() {
           </div>
         </div>
       </div>
-
-      {/* Filter Bar */}
-      <FilterBar />
     </section>
   );
 }

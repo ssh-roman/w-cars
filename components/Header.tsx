@@ -51,7 +51,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 animate-on-load animate-fade-in ${
         mobileOpen ? "bg-[#0C1220]" : isScrolled ? "bg-white shadow-sm" : "bg-transparent"
       }`}
     >

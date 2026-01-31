@@ -1,11 +1,16 @@
+"use client";
+
+import ScrollReveal from "./ScrollReveal";
+
 export default function PartnerSection() {
   return (
     <section id="partners" className="py-16 lg:py-24 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-[#0C1220] overflow-hidden">
-          <div className="flex flex-col lg:flex-row">
-            {/* Left - Content */}
-            <div className="flex-1 p-8 lg:p-12 xl:p-16 flex flex-col justify-center">
+        <ScrollReveal className="animate-scale-in">
+          <div className="bg-[#0C1220] overflow-hidden">
+            <div className="flex flex-col lg:flex-row">
+              {/* Left - Content */}
+              <div className="flex-1 p-8 lg:p-12 xl:p-16 flex flex-col justify-center">
               <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 text-white/60 px-4 py-1.5 text-sm font-medium mb-6 w-fit">
                 Parteneriat
               </div>
@@ -47,10 +52,11 @@ export default function PartnerSection() {
                 <div className="absolute bottom-1/4 left-1/4 w-10 h-10 bg-[#D4AF37]/30" />
                 <div className="absolute top-3/4 right-1/3 w-8 h-8 bg-white/5 -rotate-6" />
                 <div className="absolute top-1/2 right-1/6 w-5 h-5 bg-[#E8630A]/10" />
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

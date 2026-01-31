@@ -30,7 +30,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           {/* Company Info */}
           <div>
-            <h3 className="text-xl font-bold mb-4">W.Rent</h3>
+            <h3 className="text-xl font-bold mb-4">WRent</h3>
             <p className="text-white/40 text-sm leading-relaxed mb-6">
               Serviciul de închiriere auto de top în Moldova. Calitate,
               profesionalism și prețuri avantajoase pentru orice nevoie.
