@@ -31,7 +31,7 @@ export default function Hero() {
 
       <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex flex-col">
         {/* Spacer for fixed header */}
-        <div className="pt-16 lg:pt-36 pb-8 lg:pb-12 flex-1 flex flex-col justify-center">
+        <div className="pt-16 lg:pt-36 pb-20 flex-1 flex flex-col justify-center">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-4">
             {/* Left - Text Content */}
             <div className="w-full lg:flex-1 text-center lg:text-left">
